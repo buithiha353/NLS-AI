@@ -1,0 +1,6 @@
+{
+  "name": "KHBD Số THCS",
+  "description": "Chuyên gia tích hợp Năng lực số (Thông tư 02/2025) và Năng lực AI (Quyết định 2422/QĐ-BGDĐT) trực tiếp vào Kế hoạch bài dạy THCS (DOCX) theo Chương trình GDPT 2018.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
