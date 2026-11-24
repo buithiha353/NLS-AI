@@ -1,7 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import { GoogleGenAI, ThinkingLevel, Type } from '@google/genai';
 import { getNlsIndicatorsForGrade, findNlsIndicatorByCode } from './src/data/nlsIndicators.ts';
 import { getAiIndicatorsForGrade, findAiIndicatorByCode } from './src/data/aiIndicators.ts';
@@ -14,8 +13,7 @@ import type {
   PatchCategory,
 } from './src/types/khbd.ts';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = process.cwd();
 
 const app = express();
 app.use(express.json({ limit: '25mb' }));

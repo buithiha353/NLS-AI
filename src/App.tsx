@@ -190,7 +190,7 @@ export default function App() {
     setAnalysisError(null);
     setIsAnalyzing(true);
     try {
-      const resp = await fetch('/api/analyze-lesson', {
+      const resp = await fetch(`${import.meta.env.BASE_URL}api/analyze-lesson`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

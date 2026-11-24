@@ -1,0 +1,59 @@
+name: Deploy NLS-AI to cPanel
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "public/**"
+      - "server.ts"
+      - "package.json"
+      - "bun.lock"
+      - "vite.config.ts"
+      - "tsconfig.json"
+      - "deploy.js"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: production-nls-ai
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: production
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps --no-package-lock
+
+      - name: Validate TypeScript
+        run: npm run lint
+
+      - name: Build client and server
+        env:
+          VITE_BASE_PATH: /nls-ai/
+        run: npm run build
+
+      - name: Upload and restart application
+        env:
+          DEPLOY_FTP_HOST: ${{ secrets.DEPLOY_FTP_HOST }}
+          DEPLOY_FTP_USER: ${{ secrets.DEPLOY_FTP_USER }}
+          DEPLOY_FTP_PASSWORD: ${{ secrets.DEPLOY_FTP_PASSWORD }}
+          DEPLOY_FTP_SECURE: "true"
+          DEPLOY_FTP_REMOTE_DIR: /nls-ai-app
+        run: node deploy.js
+
