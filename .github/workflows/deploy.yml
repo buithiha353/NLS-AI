@@ -12,6 +12,7 @@ on:
       - "vite.config.ts"
       - "tsconfig.json"
       - "deploy.js"
+      - "passenger-entry.js"
       - ".github/workflows/deploy.yml"
   workflow_dispatch:
 

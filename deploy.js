@@ -11,6 +11,7 @@ async function deploy() {
   const remoteDir = process.env.DEPLOY_FTP_REMOTE_DIR || '/nls-ai-app';
   const projectDir = process.cwd();
   const serverBundle = path.join(projectDir, 'app.cjs');
+  const passengerEntry = path.join(projectDir, 'passenger-entry.js');
   const packageFile = path.join(projectDir, 'package.json');
   const clientBuild = path.join(projectDir, 'dist');
   const restartFile = path.join(os.tmpdir(), `nls-ai-restart-${Date.now()}.txt`);
@@ -21,6 +22,7 @@ async function deploy() {
 
   await Promise.all([
     fs.access(serverBundle),
+    fs.access(passengerEntry),
     fs.access(packageFile),
     fs.access(path.join(clientBuild, 'index.html')),
   ]);
@@ -32,6 +34,7 @@ async function deploy() {
     await client.access({ host, user, password, secure });
     await client.ensureDir(remoteDir);
     await client.uploadFrom(serverBundle, `${remoteDir}/app.cjs`);
+    await client.uploadFrom(passengerEntry, `${remoteDir}/app.js`);
     await client.uploadFrom(packageFile, `${remoteDir}/package.json`);
     await client.uploadFromDir(clientBuild, `${remoteDir}/dist`);
     await client.ensureDir(`${remoteDir}/tmp`);

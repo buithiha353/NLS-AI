@@ -24,7 +24,7 @@ NLS-AI is a Vietnamese teacher tool for reviewing lesson plans, matching digital
 - Server: `server.ts`.
 - Vite configuration: `vite.config.ts`.
 - Production client build: `dist` (generated and ignored).
-- Production server bundle: `app.cjs` (generated and ignored).
+- Production server bundle: `app.cjs` (generated and ignored), loaded by Passenger's tracked `passenger-entry.js` wrapper deployed as `app.js`.
 - Deployment helper: `deploy.js`.
 - GitHub Actions workflow: `.github/workflows/deploy.yml`.
 
