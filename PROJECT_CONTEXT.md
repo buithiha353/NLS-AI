@@ -44,11 +44,12 @@ NLS-AI is a Vietnamese teacher tool for reviewing lesson plans, matching digital
 ## Validation Status
 
 - TypeScript validation, the Vite client build at base `/nls-ai/`, the bundled Node 20 server, and local production health/home checks passed on 2026-11-24.
-- GitHub Actions run `45423846731` uploaded the build. On 2026-11-25 the registered Node.js app served its homepage. Public API and asset verification is pending the path-prefix fix deployment.
+- On 2026-11-25 GitHub Actions run `45642146483` uploaded the path-prefix fix and passed the live health check. The homepage and JavaScript asset returned HTTP 200, and the analysis API correctly returned HTTP 400 JSON for an empty submission. A Gemini analysis with valid inputs still requires the runtime key.
 
 ## Version Log
 
 - 2026-11-24: Added authoritative project context and prepared GitHub-to-cPanel deployment for the `/nls-ai/` production route.
 - 2026-11-25: Recorded the successful build and FTPS upload and identified the required cPanel Node.js registration.
 - 2026-11-25: Registered the live app with cPanel Node.js 22, fixed public path handling, and added a post-deploy health check.
+- 2026-11-25: Verified the automatic NLS-AI deployment, public homepage and assets, health endpoint, and analysis input validation.
 
