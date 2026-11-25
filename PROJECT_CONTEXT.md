@@ -1,6 +1,6 @@
 # PROJECT_CONTEXT
 
-Last updated: 2026-11-24
+Last updated: 2026-11-25
 Project root: `E:\AntiGravity\NLS-AI-import`
 
 ## Purpose And Scope
@@ -13,8 +13,8 @@ NLS-AI is a Vietnamese teacher tool for reviewing lesson plans, matching digital
 - Frontend: React 19 + Vite + Tailwind.
 - Backend: Express with a Gemini-powered `/api/analyze-lesson` endpoint.
 - Production target: `https://thcsleloi-yetkieu.edu.vn/nls-ai/` on the dedicated Tenten cPanel account.
-- Automatic deployment is being configured through GitHub Actions and FTPS.
-- The target cPanel account exposes Passenger Application Manager; production will use application root `nls-ai-app`, base URI `/nls-ai`, and startup file `app.cjs`.
+- GitHub Actions has built and uploaded the app over FTPS. Production still requires the cPanel Node.js application registration.
+- Configure cPanel Setup Node.js App with application root `nls-ai-app`, base URI `/nls-ai`, startup file `app.js`, production mode, and a supported Node version of at least 20. The prior generic Passenger registration was removed after it attempted to use an unavailable `/usr/bin/node`.
 - Runtime `GEMINI_API_KEY` must remain outside Git and be configured only in the hosting application environment.
 
 ## Architecture And Important Paths
@@ -44,9 +44,10 @@ NLS-AI is a Vietnamese teacher tool for reviewing lesson plans, matching digital
 ## Validation Status
 
 - TypeScript validation, the Vite client build at base `/nls-ai/`, the bundled Node 20 server, and local production health/home checks passed on 2026-11-24.
-- The automated production deployment and live Passenger route still require end-to-end verification.
+- GitHub Actions run `45423846731` completed successfully. The hosted `/nls-ai/` and `/nls-ai/api/health` routes returned HTTP 404 on 2026-11-25, before Node.js registration.
 
 ## Version Log
 
 - 2026-11-24: Added authoritative project context and prepared GitHub-to-cPanel deployment for the `/nls-ai/` production route.
+- 2026-11-25: Recorded the successful build and FTPS upload and identified the required cPanel Node.js registration.
 
