@@ -58,3 +58,8 @@ jobs:
           DEPLOY_FTP_REMOTE_DIR: /nls-ai-app
         run: node deploy.js
 
+      - name: Verify public API responds
+        run: |
+          curl --fail --silent --show-error --retry 5 --retry-all-errors --max-time 15 \
+            https://thcsleloi-yetkieu.edu.vn/nls-ai/api/health | jq -e '.ok == true'
+

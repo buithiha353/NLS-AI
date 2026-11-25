@@ -13,8 +13,8 @@ NLS-AI is a Vietnamese teacher tool for reviewing lesson plans, matching digital
 - Frontend: React 19 + Vite + Tailwind.
 - Backend: Express with a Gemini-powered `/api/analyze-lesson` endpoint.
 - Production target: `https://thcsleloi-yetkieu.edu.vn/nls-ai/` on the dedicated Tenten cPanel account.
-- GitHub Actions has built and uploaded the app over FTPS. Production still requires the cPanel Node.js application registration.
-- Configure cPanel Setup Node.js App with application root `nls-ai-app`, base URI `/nls-ai`, startup file `app.js`, production mode, and a supported Node version of at least 20. The prior generic Passenger registration was removed after it attempted to use an unavailable `/usr/bin/node`.
+- cPanel Setup Node.js App runs the application in production mode on Node.js 22.23.5 with root `nls-ai-app`, URL `/nls-ai`, and startup file `app.js`.
+- Passenger forwards the public path prefix, so the production server accepts paths with and without `/nls-ai`. The GitHub Actions workflow checks the public health endpoint after redeploying.
 - Runtime `GEMINI_API_KEY` must remain outside Git and be configured only in the hosting application environment.
 
 ## Architecture And Important Paths
@@ -44,10 +44,11 @@ NLS-AI is a Vietnamese teacher tool for reviewing lesson plans, matching digital
 ## Validation Status
 
 - TypeScript validation, the Vite client build at base `/nls-ai/`, the bundled Node 20 server, and local production health/home checks passed on 2026-11-24.
-- GitHub Actions run `45423846731` completed successfully. The hosted `/nls-ai/` and `/nls-ai/api/health` routes returned HTTP 404 on 2026-11-25, before Node.js registration.
+- GitHub Actions run `45423846731` uploaded the build. On 2026-11-25 the registered Node.js app served its homepage. Public API and asset verification is pending the path-prefix fix deployment.
 
 ## Version Log
 
 - 2026-11-24: Added authoritative project context and prepared GitHub-to-cPanel deployment for the `/nls-ai/` production route.
 - 2026-11-25: Recorded the successful build and FTPS upload and identified the required cPanel Node.js registration.
+- 2026-11-25: Registered the live app with cPanel Node.js 22, fixed public path handling, and added a post-deploy health check.
 

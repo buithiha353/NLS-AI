@@ -16,6 +16,17 @@ import type {
 const __dirname = process.cwd();
 
 const app = express();
+if (process.env.NODE_ENV === 'production') {
+  app.use((req, _res, next) => {
+    // The hosting proxy can forward the public mount prefix to Node.js.
+    const mount = '/nls-ai';
+    if (req.path === mount || req.path.startsWith(`${mount}/`)) {
+      const suffix = req.url.slice(mount.length);
+      req.url = suffix.startsWith('/') ? suffix : `/${suffix}`;
+    }
+    next();
+  });
+}
 app.use(express.json({ limit: '25mb' }));
 
 function getGeminiClient(): GoogleGenAI {
